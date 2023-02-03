@@ -34,7 +34,7 @@ class BookAdmin(admin.ModelAdmin):
                 
                 fields = x.split(";")
                 if fields[12]=='':
-                    fields[12]=None
+                    fields[12]=100
                 # print(fields[0])
                 Book.objects.create(
                     ISBN= fields[0],
