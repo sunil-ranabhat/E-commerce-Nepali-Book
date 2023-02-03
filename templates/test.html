@@ -1,0 +1,116 @@
+{% extends 'base_layout.html' %} {% load static %}{% block titlesection %}
+<title>FocusUs - Tech,Tutorials and Education</title> {% endblock %}
+{% block customstyling %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.8.6/venobox.min.css">
+<meta name="description"
+    content="FocusUs is an online platform intending to provide you with authentic information, news, blogs, tutorials and videos about recent technology and online education for FREE!">
+{% endblock %}
+{% block contents %}<div class="slider z-depth-3 hide-on-small-only">
+    <ul class="slides">
+        <li> <img src="{%static 'img/bg.jpg' %}">
+            <div class="caption center-align"> <br><br>
+                <h1>Welcome to FocusUs</h1>
+                <h5 class="light grey-text text-lighten-3 smalltext" style="width: 35%; margin: auto;">We provide best
+                    tech news, blogs, tutorials and education for FREE.</h5> <br> <a href="/about"
+                    class=" white black-text waves-effect waves-dark btn-large"> <b>Learn more </b></a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="slider z-depth-3 hide-on-med-and-up">
+    <ul class="slides">
+        <li> <img src="{%static 'img/bg.jpg' %}">
+            <div class="caption center-align" style="margin-top: -20px;"> <br>
+                <h1>Welcome to FocusUs</h1>
+                <h5 class="light grey-text text-lighten-3 smalltext">We provide best tech news, blogs, tutorials and
+                    education for FREE.</h5> <br> <a href="/about"
+                    class="white black-text waves-effect waves-dark btn-large"> <b>Learn more </b></a>
+            </div>
+        </li>
+    </ul>
+</div> <br>
+<section>
+    <h2 class="center-align"> Our Blogs and News</h2> <br>
+    <div class="row">
+        <div class="col s4 m4 l4 offset-s4 offset-l4 offset-m4">
+            <hr>
+        </div> <br> <br>
+    </div>
+    <div class="width_content">
+        <div class="row">
+            <h6 class="right-align"> <a href="/blog" style="color: black;"> See all &nbsp; &nbsp; </a></h6>{% for data
+            in data1 %}<div class="col s12 m4 l4">
+                <div class="card hoverable card_mobile_sapcing">
+                    <div class="card-image"> <img src="{{data.blog.display_image.url}}"></div>
+                    <div class="card-content"> <span class="card-title "> <b class="trunk1"> {{data.blog.title}}
+                            </b></span>
+                        <p class="trunk2">{{data.blog.description}}</p>
+                    </div>
+                    <div class="card-action"> <a href="{% url 'BlogDetail' data.blog.slug%}"
+                            class="btn waves-effect waves-light grey darken-4">Read More</a></div>
+                </div>
+            </div>{% endfor %}
+        </div>
+    </div>
+</section><br>
+<section>
+    <h2 class="center-align"> Our Latest Videos</h2> <br>
+    <div class="row">
+        <div class="col s4 m4 l4 offset-s4 offset-l4 offset-m4">
+            <hr>
+        </div> <br> <br>
+    </div>
+    <div class="row width_content">
+        <h6 class="right-align"> <a href="/video" style="color: black;"> See all &nbsp; &nbsp; </a></h6> {% for data in
+        data2 %}<div class="col l4 m4 s12">
+            <div class="card card_mobile_sapcing"> <a class="venobox" data-autoplay="true" data-vbtype="video"
+                    data-gall="myGallery" href="{{data.video.url}}">
+                    <div class="card-image video_transition"> <img src="{{data.video.img.url}}"> <i
+                            class=" material-icons center button_placement">play_circle_filled</i></div>
+                </a>
+                <div class="card-content black-text"> <span class="card-title"> <b
+                            class="trunk1">{{data.video.title}}</b> </span></div>
+            </div>
+        </div> {% endfor %}
+    </div>
+</section> <br> <br>
+<section>
+    <h2 class="center-align"> Our Services</h2> <br>
+    <div class="row">
+        <div class="col s4 m4 l4 offset-s4 offset-l4 offset-m4">
+            <hr>
+        </div> <br> <br>
+    </div>
+    <div class="row width_content">
+        <div class="col m4 s12 l4">
+            <div class="icon-block">
+                <h2 class="center black-text"><i class=" medium material-icons ">devices_other</i></h2>
+                <h5 class="center"><b>Tech</b></h5>
+                <p style="margin-left: 15px; margin-right: 15px; text-align: justify;">The primary goal at FocusUs is to
+                    keep you updated in the field of technology. We provide you with the latest tech news, blogs and
+                    videos as it happens.</p>
+            </div>
+        </div>
+        <div class="col m4 s12 l4">
+            <div class="icon-block">
+                <h2 class="center black-text"><i class="medium material-icons">dvr</i></h2>
+                <h5 class="center"><b>Tutorials</b></h5>
+                <p style="margin-left: 15px; margin-right: 15px; text-align: justify;">We here at FocusUs, believe
+                    self-learning is important. For you to stay relevant in an ever-changing world, we provide you with
+                    genuine, simple and to-the-point tech tutorials.</p>
+            </div>
+        </div>
+        <div class="col m4 s12 l4">
+            <div class="icon-block">
+                <h2 class="center black-text"><i class=" medium material-icons">menu_book</i></h2>
+                <h5 class="center"><b>Education</b></h5>
+                <p style="margin-left: 15px; margin-right: 15px; text-align: justify;">We believe that Education should
+                    be FREE for everyone. FocusUs provides quality educational blogs, tutorials and videos for FREE!</p>
+            </div>
+        </div>
+    </div>
+</section>
+<br><br><!--<section><h2 class="center-align"> Subscribe to Newsletter</h2> <br><div class="row"><div class="col s4 m4 l4 offset-s4 offset-l4 offset-m4"><hr></div> <br> <br></div><div class="row width_content_narrow"><div class="col l6 m6 s12"><h6 style="line-height: 1.4;"> Want to stay informed on the latest tech news, updates and educational blogs for FREE? Don't worry! We'll cover that for you! Just drop the email here.</h6></div><form action="" method="post"><div class="col l6 m6 s12 " style="margin-top:-8px;"><div class="input-field"> <i class="material-icons prefix">email</i> <input id="email" type="email" class="validate" required name="email"> <label for="email">Email</label></div> {% csrf_token %} <button class=" grey darken-4 btn waves-effect waves-light" type="submit" name="action" onclick="myFunction()">Subscribe <i class="material-icons right">notifications_active</i> </button></div></form></div> </section>-->
+<br> <br>{% endblock %}{% block customjs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.8.6/venobox.min.js"></script>
+<script src="{%static 'js/extra.js' %}"></script> {% endblock %}

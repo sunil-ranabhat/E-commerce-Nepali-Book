@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Book
 from django.urls import path,reverse
 from django.shortcuts import redirect,render
-from .models import Book
+from .models import Book,HomeBook
 from  django.http import HttpResponseRedirect
 from django import forms
 # Register your models here.
@@ -57,3 +57,6 @@ class BookAdmin(admin.ModelAdmin):
         form = BookForm()
         data = {"form":form}
         return render(request,"admin/csv_upload.html", data)
+    
+
+admin.site.register(HomeBook)

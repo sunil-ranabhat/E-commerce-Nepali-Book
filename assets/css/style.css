@@ -1,0 +1,279 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+:root{
+  --ease: 0.3s ease 0s;
+}
+
+/* background color navbar  */
+.hover_backcolor li:hover{
+  background-color: #3e2723     ;
+}
+
+.width_content{
+  width: 90%;
+  margin: auto;
+}
+
+.width_content_narrow{
+  width: 80%;
+  margin: auto;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+
+div .blogimg{
+  height: 100px;
+}
+
+.wid{
+ width: 100%;
+}
+
+.button-margin-down{
+  margin-bottom: 10px;
+}
+
+/* Search box css */
+
+.search{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    left: 50%;
+    
+    transform: translate(-50%, -50%);
+}
+
+.searchbox{
+    transition: border .2s linear;
+    font-size: 12px;
+    width: 55%;
+    background:#eeeeee   ;
+    color: #000;
+    padding: 8px 32px 8px 12px;
+    height: 45px;
+    border: 1px solid #e6ecf0;
+    border-radius: 50px;
+    outline: none;
+}
+
+.searchbox::placeholder{
+  color: #424242 ;
+  font-size: 15px;
+  font-family:Roboto 2.0;
+}
+
+.searchbox::-ms-input-placeholder{
+  color: #424242 ;
+  font-size: 15px;
+  font-family: Roboto 2.0;
+  
+}
+
+
+.searchbox:focus{
+    transition: border .2s linear;
+    border: 2px solid #263238 ;
+}
+
+.searchbtn{
+    position: absolute;
+    font-size: 20px;
+    color: #263238;
+    background-color: transparent;
+    border:none;
+    right: 24%;
+    top: 5px;
+    outline: none;
+    padding: 4px;
+}
+
+/* End of Search box css */
+
+
+/* Start of button placement center */
+
+.button_placement{
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 100px;
+  color: #eceff1  ;
+}
+
+
+
+/* End of Start of button placement center */
+
+
+/* Start of video transition */
+
+.video_transition{
+
+  transition: var(--ease);
+
+
+}
+
+.video_transition:hover{
+  filter: brightness(70%);
+  transform: scale(1.02);
+
+}
+
+
+.input-field input[type=email]:focus + label, input[type=text]:focus + label, input[type=password]:focus + label, textarea:focus + label {
+  color: #000 !important;
+}
+
+
+.input-field input:focus, textarea:focus {
+border-bottom: 1px solid #263238  !important;
+box-shadow: 0 1px 0 0 #263238  !important
+}
+
+.input-field .prefix.active {
+  color: #263238 !important;
+}
+
+/*Trunket line CSS*/
+.trunk1{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;             
+}
+
+
+.trunk2{
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+
+/*Sorting Dropdown */
+
+
+.dropbtns {
+  background-color: #263238  ;
+  color: white;
+  padding: 7px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.dropbtns:hover, .dropbtns:focus {
+  background-color: black   ;
+}
+
+.dropdowns{
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-contents {
+  display: none;
+  position: absolute;
+  background-color: #212121;
+  min-width: 135px;
+  overflow: auto;
+  z-index:1;
+}
+
+.dropdown-contents a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdowns a:hover {background-color: black;}
+
+.show {display: block;}
+
+
+
+
+/*Card lower sapcing for mobile view */
+.card_mobile_sapcing{
+  margin-bottom: 20px;
+
+}
+
+
+
+
+
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
+.imgblog{
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+

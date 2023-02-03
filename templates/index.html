@@ -1,0 +1,146 @@
+{% extends 'base_layout.html' %} {% load static %}{% block titlesection %}
+<title>Book Recommendation</title> {% endblock %}
+
+
+{% block contents %}
+
+
+<div class="slider z-depth-3 hide-on-small-only" >
+    <ul class="slides">
+      <li>
+        <img  src="{% static 'img/bg.jpg' %}"> 
+
+       
+
+        <div class="caption center-align" >
+      
+          <h1>Welcome to Nepali Book Website</h1>
+          
+          <br> <br> 
+
+          <form method="POST">
+            <div class="search">
+              <input type="text" name="q" class="searchbox browser-default" placeholder=" Search Nepali Books here" style="font-size: 15px; padding-left: 30px; font-family: Roboto 2.0;">
+              <button type="submit" class="searchbtn"><i class="fas fa-search"></i></button>
+            </div>
+          </form>
+
+
+
+
+
+
+
+        </div>
+
+       
+        
+
+
+      
+      </li>
+    
+    </ul>
+  </div>
+      
+
+
+
+
+  <div class="slider z-depth-3 hide-on-med-and-up">
+    <ul class="slides">
+      <li>
+        <img  src="{% static 'img/bg.jpg' %}"> 
+
+        <div class="caption center-align" style="margin-top: -20px;">
+          <br>
+          <h1>Welcome to NBRS</h1>
+          <h5 class="light grey-text text-lighten-3 smalltext" >We provide best tech news, blogs, tutorials and education 
+            for FREE.  
+          </h5>
+          <br>
+        
+          <a class=" white black-text waves-effect waves-dark btn-large"> <b>Learn more  </b></a>  
+        </div>
+
+        
+        
+
+
+      
+      </li>
+    
+    </ul>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      
+  <!-- Blogs and news using Cards  -->
+  <br>
+  <section>
+    <h2 class="center-align"> Trending Books </h2> 
+    
+    <br>
+    
+      <div class="row">
+        <div class="col s4 m4 l4 offset-s4 offset-l4 offset-m4"> <hr></div> <br> <br> 
+      </div>
+      <div class="width_content">
+      <div class="row">
+        <h6 class="right-align"> <a href="#" style="color: black;"> See all &nbsp; &nbsp; </a></h6> 
+       
+       
+
+
+
+
+
+       {% for book in books %}
+
+
+        <div class="col s12 m4 l3">
+          <div class="card">
+            <div class="card-image">
+              <img src="{{ book.book.image.url }}">
+              
+              <a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">trending_up</i> </a>
+            </div>
+              <div class="card-content">
+              <span class="card-title">{{ book.book.nepali_name }} <span class="right">{{ book.book.avg_rating }}/10</span> </span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+          
+      </div>    
+    </div>
+    </section>
+
+          
+  
+  <!-- Latest Videos -->
+
+ 
+        
+  
+
+  
+
+
+
+{% endblock %}
