@@ -5,6 +5,7 @@ class Book(models.Model):
     ISBN= models.CharField(max_length=20,null=True)
     english_name= models.CharField(max_length=100,null=True)
     nepali_name= models.CharField(max_length=100,null=True)
+    slug = models.SlugField(max_length=500 , null=True,default='')
     english_author= models.CharField(max_length=100,null=True)
     nepali_author=models.CharField(max_length=100,null=True)
     avg_rating=models.FloatField(null=True)

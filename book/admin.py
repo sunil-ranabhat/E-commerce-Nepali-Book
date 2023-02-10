@@ -42,8 +42,8 @@ class BookAdmin(admin.ModelAdmin):
                     nepali_name= fields[1],
                     english_author= fields[3],
                     nepali_author=fields[5],
-                    avg_rating=float(fields[9].replace(',','.'))
-,
+                    avg_rating=float(fields[9].replace(',','.')),
+                    slug=fields[2].replace(' ','-'),
                     Publisher= fields[10],
                     no_of_pages=fields[12],
                     year_published=fields[14],
@@ -56,7 +56,7 @@ class BookAdmin(admin.ModelAdmin):
 
         form = BookForm()
         data = {"form":form}
-        return render(request,"admin/csv_upload.html", data)
+        return render(request,"upload_csv.html", data)
     
 
 admin.site.register(HomeBook)

@@ -1,0 +1,104 @@
+{% extends 'base_layout.html' %} {% load static %}{% block titlesection %}
+<title>{{ book.english_name }}</title> {% endblock %}
+
+
+{% block contents %}
+
+<br>
+<br>
+
+<div class="width_content_narrow">
+    <div class="row">
+     <div class="col s6 l12">
+   
+       <div class="card horizontal medium">
+         <div class="card-image">
+           <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg">
+         </div>
+         <div class="card-stacked">
+           <div class="card-content">
+             <h3 style="margin-top: -10px;"> {{ book.nepali_name }} ({{ book.english_name }})
+             </h3>
+             <p style="margin-top: -9px;"><span style="color: brown;">By {{ book.english_author }}    ( {{ book.nepali_author }} )</span></p>
+             <span style="font-weight: 600; font-size: large;"> Genre <a href="">  &nbsp; Fiction</a> </span>
+             <div style="margin-top: 0px;">
+               <span style="font-weight: 600; font-size: large;"> Rating &nbsp;</span>
+               <span class="fa fa-star checked" style="color: orange;"></span>
+               <span class="fa fa-star checked"style="color: orange;"></span>
+               <span class="fa fa-star checked"style="color: orange;"></span>
+               <span class="fa fa-star"style="color: orange;"></span>
+               <span class="fa fa-star"style="color: orange;"></span> 
+               <span style="font-weight: 600; font-size: large;"> &nbsp; {{ book.avg_rating }} of 5</span>
+             </div>
+             <span style="font-weight: 600; font-size: large;"> Publication &nbsp; <span style="color: brown;"> {{ book.Publisher }} </span></span>
+   
+             <p style="font-weight: 600; font-size: large;margin-top: 3px;"> Description </p>
+             <p style="font-size: large; margin-top: 3px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde architecto quasi delectus ullam, voluptatum tenetur ipsum,
+               minus, ut eius dolorum quis et atque excepturi voluptatibus autem eum magnam nesciunt. Deleniti dolorem voluptate rem consectetur 
+               fuga ex nemo nam blanditiis quaerat reiciendis .</p>
+   
+              
+           </div>
+           <div class="card-action">
+             <a class=" hell white-text waves-effect waves-light btn" href="#"><i class="material-icons left">calendar_month</i>{% if book.year_published %} {{book.year_published}} {% else %} 2000 {% endif %}</a> &nbsp; &nbsp; &nbsp;
+             <a class=" hell white-text waves-effect waves-light btn" href="#"><i class="material-icons left">add_box</i>Add to Collection</a> &nbsp; &nbsp; &nbsp;
+             <a class=" hell white-text waves-effect waves-light btn" href="https://amazon.com" target="_blank"><i class="material-icons left">shopping_cart</i>Buy Now</a>
+           </div>
+         </div>
+       </div>
+       
+     </div>
+   </div>
+    </div>
+<br>
+    <section class="width_content_narrow">
+        <div class="divider"></div>
+        <br>
+        <h4> Reviews </h4>
+        
+       <br>
+        
+        <!-- comment input filed-->
+        <div>
+        <div class="input-field">
+          <i class="material-icons prefix">comment</i>
+          <textarea id="commentarea" class="materialize-textarea"></textarea>
+          <label for="commentarea">Write Review Here</label> 
+        </div>
+        
+        
+        <div class="right" style="margin-top: -15px;">
+          <a class="blue-grey darken-4 waves-effect waves-light btn" onclick="document.getElementById('commentarea').value = ''">Cancel </a> &nbsp;
+        
+          <a class=" hell darken-4 waves-effect waves-light btn" >Post</a>
+        </div>
+        </div>
+        
+        <br> <br> 
+        
+        <!--comment sample-->
+        
+        <div class="load1">
+          <span style="float: left;"><img src="img/haaa.jpg" alt="" class="circle responsive-img" style="height: 50px; width: 50px; "></span>
+           <span style="font-size: 13pt; font-weight:600; "> &nbsp;  &nbsp; @Sishir123 </span> <br>
+           <span>  &nbsp;  &nbsp; 1 day ago </span>
+        
+           <p class="blogcomment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quas ipsum, nesciunt perspiciatis ad recusandae, vero 
+             consectetur 
+             maiores in aspernatur similique. Atque fugiat asperiores placeat! Voluptates beatae dolores officia voluptas!</p>
+              <span style=" cursor:pointer; font-size: 12pt; font-weight:500;">Reply</span>
+        
+              <br> <br>
+              <div class="divider"></div>
+              <br>
+         </div>
+        
+        
+        
+        
+         
+        
+        </section>
+        
+
+{% endblock %}
