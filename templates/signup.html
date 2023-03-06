@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>SignUp</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .tabs .indicator {
+            background-color: #1e3d59;
+        }
+    </style>
+</head>
+
+<body style="background-color: #1e3d59;"> <br> <br>
+
+    <div class="row">
+        <div class="col s12 m4 push-m4 l4 push-l4">
+            <div class="card hoverable">
+                <div class="card-tabs">
+                    <ul style="overflow-x: hidden;" class="tabs tabs-fixed-width">
+                        
+                        <li class="tab"><a class=" blue-grey lighten-3" href="#signup"
+                                style="font-size: 20px; color: #263238 ;"> Sign Up </a></li>
+                    </ul>
+                </div>
+                <div class="card-content grey lighten-4">
+                    
+                    <form action="" id="signup" method="POST">
+                        <p></p>
+                        <div>
+                            <div class="input-field"> <i class="material-icons prefix">account_circle</i> <input
+                                    id="icon_prefix1" type="text" class="validate" required name="signup_name"> <label
+                                    for="icon_prefix1">Full Name</label></div>
+                            <div class="input-field"> <i class="material-icons prefix">assignment_ind</i> <input
+                                    id="signup_username" type="text" class="validate" required name="signup_username">
+                                <label for="signup_username">Username </label></div>
+                            <div class="input-field"> <i class="material-icons prefix">email</i> <input
+                                    id="signup_email" type="email" class="validate" required name="signup_email"> <label
+                                    for="signup_email">Email</label></div>
+                            <div class="input-field"> <i class="material-icons prefix">vpn_key</i> <input
+                                    id="icon_email1" type="password" class="validate" required name="signup_password"
+                                    pattern="(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,}" minlength="6"
+                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                                <label for="icon_email1">Set Password</label></div>
+                            <div id="error_message"></div>{% if messages %} {% for message in messages %} {%if "signup"  in message.tags %}<p class="red-text" style="margin-left:5px;">{{message}}</p> {% endif %}
+                            {% endfor %} {% endif %} <br>
+                            <div>
+                                
+                            </div> <br>
+                            <div class="center-align"> {% csrf_token %} <button id="signup_button"
+                                    class="blue-grey darken-4 btn waves-effect waves-light" type="submit"
+                                    name="action">Sign Up <i class="material-icons right">send</i> </button></div>
+                        </div>
+                        <br>
+                        <a style="margin-left:5px;" href="{% url 'Signin' %}">Already have an account? Sign in
+                        </a>
+                    </form>
+                </div>
+            </div> <br>
+            
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/9478bf204b.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/extra.js'%}"></script>
+    <script>$(document).ready(function () { $('.tabs').tabs(); $('select').material_select(); });</script>
+</body>
+
+</html>

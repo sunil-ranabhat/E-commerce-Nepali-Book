@@ -13,14 +13,13 @@
    
        <div class="card horizontal medium">
          <div class="card-image">
-           <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg">
-         </div>
+         {% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"> {% endif %}         </div>
          <div class="card-stacked">
            <div class="card-content">
              <h3 style="margin-top: -10px;"> {{ book.nepali_name }} ({{ book.english_name }})
              </h3>
              <p style="margin-top: -9px;"><span style="color: brown;">By {{ book.english_author }}    ( {{ book.nepali_author }} )</span></p>
-             <span style="font-weight: 600; font-size: large;"> Genre <a href="">  &nbsp; Fiction</a> </span>
+             <span style="font-weight: 600; font-size: large;"> Genre <a href="/book?genre={{ book.genre }}">  &nbsp; {{ book.genre }}</a> </span>
              <div style="margin-top: 0px;">
                <span style="font-weight: 600; font-size: large;"> Rating &nbsp;</span>
                <span class="fa fa-star checked" style="color: orange;"></span>
@@ -50,6 +49,46 @@
      </div>
    </div>
     </div>
+
+
+    <section class="width_content_narrow">
+      <h4 style="padding-left: 10px;"> Users who read this book have also read </h4> 
+      
+      
+        <div class="row">
+          
+        </div>
+        <div class="width_content">
+        <div class="row">
+         
+  
+  
+  
+  
+         
+       {% for book in similar_books %}
+  
+  
+          <div class="col s12 m4 l3">
+            <div class="card">
+              <div class="card-image">
+                <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}            
+              </div>
+                <div class="card-content">
+               <a href="/book/{{ book.slug }}"> <span class="card-title" style="color: black;">{{ book.nepali_name }} <span class="right">{{ book.avg_rating }}/5 </span> </span> </a>
+              </div>
+            </div>
+          </div>
+          
+          {% endfor %}
+          
+  
+            
+        </div>    
+      </div>
+      </section>
+  
+
 <br>
     <section class="width_content_narrow">
         <div class="divider"></div>
@@ -86,9 +125,9 @@
            <p class="blogcomment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quas ipsum, nesciunt perspiciatis ad recusandae, vero 
              consectetur 
              maiores in aspernatur similique. Atque fugiat asperiores placeat! Voluptates beatae dolores officia voluptas!</p>
-              <span style=" cursor:pointer; font-size: 12pt; font-weight:500;">Reply</span>
+              
         
-              <br> <br>
+              <br>
               <div class="divider"></div>
               <br>
          </div>

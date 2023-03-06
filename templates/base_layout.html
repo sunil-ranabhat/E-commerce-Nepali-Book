@@ -24,6 +24,16 @@
   .hell {
     background-color: #1e3d59  !important;
   }
+  /* body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  } */
+      
     </style>{% block customstyling %} {% endblock %}
 </head>
 
@@ -38,9 +48,9 @@
                         <li><a href="/book">Collection</a></li>
                         <li><a href="">AboutUs</a></li>
                          {% if user.is_authenticated %} <a class=" white black-text waves-effect waves-dark btn modal-trigger"
-                            href="/signup/logout?next={{ request.path_info }}"><b>{{ user.username }} <span
+                            href="/auth/logout?next={{ request.path_info }}"><b>{{ user.username }} <span
                                     class="material-icons" style="vertical-align: -6px;"> logout</span> </b></a> {% else %} <a class=" white black-text waves-effect waves-dark btn modal-trigger"
-                            href="/signup?next={{ request.path_info }}"><b>LOGIN </b></a> {% endif %}
+                            href="/auth/signin?next={{ request.path_info }}"><b>LOGIN </b></a> {% endif %}
                     </ul>
                 </div>
             </div>
@@ -54,7 +64,7 @@
             class="black white-text waves-effect waves-light btn" style="margin-left: 27px; margin-top: 7px;"
             href="/signup/logout?next={{ request.path_info }}">LOGOUT</a> {% else %} <a
             class="black white-text waves-effect waves-light btn" style="margin-left: 27px; margin-top: 7px;"
-            href="/signup?next={{ request.path_info }}">SIGN IN</a> {% endif %}
+            href="/auth/signup?next={{ request.path_info }}">SIGN IN</a> {% endif %}
     </ul> {% block contents %} {% endblock %}<section>
 
         

@@ -1,26 +1,44 @@
 {% extends 'base_layout.html' %} {% load static %}{% block titlesection %}
-<title>All Books</title> {% endblock %}
+{% if request.GET.query %}
+<title>{{ request.GET.query }}</title> 
+{% elif request.GET.genre %}
+<title>{{ request.GET.genre }}</title> 
+{% else %}
+<title>All Books</title>
+{% endif %}
+{% endblock %}
 
 
 {% block contents %}
 
 <ul id="slide-out" class="sidenav sidenav-fixed" style="margin-top:64px;">
   <li style="margin-left: 30px;"><h4>  <i class="material-icons">display_settings</i> Genre</h4></a>
-  <li><a href="#!"style="font-size: 18px;">History</a></li>
-  <li><a href="#!"style="font-size: 18px;">Romantic</a></li>
-  <li><a href="#!"style="font-size: 18px;">Action</a></li>
-  <li><a href="#!"style="font-size: 18px;">Comedy</a></li>
+  <li><a href="/book?genre=Fiction"style="font-size: 18px;">Fiction</a></li>
+  <li><a href="/book?genre=Non-Fiction"style="font-size: 18px;">Non-Fiction</a></li>
+  <li><a href="/book?genre=Novel"style="font-size: 18px;">Novel</a></li>
+  <li><a href="/book?genre=Fantasy"style="font-size: 18px;">Fantasy</a></li>
+  <li><a href="/book?genre=Biography"style="font-size: 18px;">Biography</a></li>
+  <li><a href="/book?genre=Poetry"style="font-size: 18px;">Poetry</a></li>
 </ul>
 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       
 
-
+{% if request.GET.query %}
+<h3 style="margin-left: 360px;margin-top: -10px;">Search: {{ request.GET.query }}</h3>
+<h5 style="margin-left: 360px;margin-top: -10px;">{{ number_of_books }} Results found</h6>
+  {% elif request.GET.genre %}
+  <h3 style="margin-left: 360px;margin-top: -10px;">Genre: {{ request.GET.genre }}</h3>
+<h5 style="margin-left: 360px;margin-top: -10px;">{{ number_of_books }} Results found</h6>
+{% else %}
 <h3 style="margin-left: 360px;margin-top: -10px;">Explore Nepali Books</h3>
+{% endif %}
+
 <br>
 <br>
-<form method="POST">
+<br>
+<form method="GET" action="{% url 'BookList' %}">
   <div class="search" style="margin-left: 24px;">
-    <input type="text" name="q" class="searchbox browser-default" placeholder=" Search Nepali Books here" style="font-size: 15px; padding-left: 30px; font-family: Roboto 2.0;">
+    <input type="text" name="query" class="searchbox browser-default" placeholder=" Search Nepali Books here" style="font-size: 15px; padding-left: 30px; font-family: Roboto 2.0;">
     <button type="submit" class="searchbtn"><i class="fas fa-search"></i></button>
   </div>
 </form>
@@ -35,7 +53,7 @@
   
       <div class="card horizontal small">
         <div class="card-image">
-         <a href="/book/{{ book.slug }}"> <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"> </a> 
+         <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}
         
         </div>
         <div class="card-stacked">

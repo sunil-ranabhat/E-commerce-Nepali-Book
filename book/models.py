@@ -6,6 +6,7 @@ class Book(models.Model):
     english_name= models.CharField(max_length=100,null=True)
     nepali_name= models.CharField(max_length=100,null=True)
     slug = models.SlugField(max_length=500 , null=True,default='')
+    genre= models.CharField(max_length=100,null=True)
     english_author= models.CharField(max_length=100,null=True)
     nepali_author=models.CharField(max_length=100,null=True)
     avg_rating=models.FloatField(null=True)

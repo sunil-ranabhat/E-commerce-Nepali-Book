@@ -18,9 +18,9 @@
           
           <br> <br> 
 
-          <form method="POST">
+          <form method="GET" action="{% url 'BookList' %}">
             <div class="search">
-              <input type="text" name="q" class="searchbox browser-default" placeholder=" Search Nepali Books here" style="font-size: 15px; padding-left: 30px; font-family: Roboto 2.0;">
+              <input type="text" name="query" class="searchbox browser-default" placeholder=" Search Nepali Books here" style="font-size: 15px; padding-left: 30px; font-family: Roboto 2.0;">
               <button type="submit" class="searchbtn"><i class="fas fa-search"></i></button>
             </div>
           </form>
@@ -120,7 +120,7 @@
               <a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">trending_up</i> </a>
             </div>
               <div class="card-content">
-              <span class="card-title">{{ book.book.nepali_name }} <span class="right">{{ book.book.avg_rating }}/10</span> </span>
+              <span class="card-title">{{ book.book.nepali_name }} <span class="right">{{ book.book.avg_rating }}/5</span> </span>
             </div>
           </div>
         </div>

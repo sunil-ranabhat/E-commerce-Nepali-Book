@@ -5,9 +5,13 @@ from django.shortcuts import redirect,render
 from .models import Book,HomeBook
 from  django.http import HttpResponseRedirect
 from django import forms
+from random import randrange
 # Register your models here.
 class BookForm(forms.Form):
     book_upload = forms.FileField()
+
+
+genres=['Fiction', 'Non-Fiction', 'Novel', 'Fantasy','Biography','Poetry']
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -42,6 +46,7 @@ class BookAdmin(admin.ModelAdmin):
                     nepali_name= fields[1],
                     english_author= fields[3],
                     nepali_author=fields[5],
+                    genre= genres[randrange(0,6)],
                     avg_rating=float(fields[9].replace(',','.')),
                     slug=fields[2].replace(' ','-'),
                     Publisher= fields[10],

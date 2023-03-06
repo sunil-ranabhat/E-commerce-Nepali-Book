@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>SignUp</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .tabs .indicator {
+            background-color: #1e3d59
+        }
+        .hell {
+    background-color: #1e3d59  !important;
+  }
+    </style>
+</head>
+
+<body style="background-color: #1e3d59;"> <br> <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col s12 m4 push-m4 l4 push-l4">
+            <div class="card hoverable">
+                <div class="card-tabs">
+                    <ul style="overflow-x: hidden;" class="tabs tabs-fixed-width">
+                        <li class="tab"><a class=" active blue-grey lighten-3" href="#signin"
+                                style="font-size: 20px; color: #263238 ;"> Sign In </a></li>
+                        
+                    </ul>
+                </div>
+                <div class="card-content grey lighten-4">
+                    <form action="" id="signin" method="POST">
+                        <div>
+                            <div class="input-field"> <i class="material-icons prefix">account_circle</i> <input
+                                    required id="icon_prefix" type="text" class="validate" required
+                                    name="login_username"> <label for="icon_prefix">Email / Username</label></div>
+                            <div class="input-field"> <i class="material-icons prefix">vpn_key</i> <input required
+                                    id="icon_email" type="password" class="validate" required name="login_password">
+                                <span toggle="icon_email" style="margin-left: -30px;"
+                                    class="toggle-password material-icons prefix right">visibility</span> <label
+                                    for="icon_email">Password</label></div>
+                            <div>
+                                
+                            </div> {% if messages %} {% for message in messages %} {%if "login" in message.tags %}
+                            <p class="red-text" style="margin-left:5px;">{{message}}</p> <br> {% endif %} {% endfor %}
+                            {% endif %}  <br>
+                            <div class="center-align"> {% csrf_token %} <button id="signin_button"
+                                class="blue-grey darken-4 btn waves-effect waves-light" type="submit"
+                                name="action">Sign In <i class="material-icons right">send</i> </button></div>
+                        </div>
+                        <a style="margin-left:5px;" href="{% url 'Signup'%}">Create an Account
+                            </a>
+                    </form>
+                    
+                </div>
+            </div> <br>
+            
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/9478bf204b.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/extra.js'%}"></script>
+    <script>$(document).ready(function () { $('.tabs').tabs(); $('select').material_select(); });</script>
+</body>
+
+</html>
