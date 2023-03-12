@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .star {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.active {
+  color: #ffcc00;
+}
+
+    </style>
+</head>
+<body>
+    <div class="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+      </div>
+      
+</body>
+<script>
+    const stars = document.querySelectorAll('.star');
+const rating = document.querySelector('.rating');
+
+stars.forEach(function(star) {
+  star.addEventListener('click', setRating);
+});
+
+function setRating(e) {
+  const value = parseInt(e.target.getAttribute('data-value'));
+  
+  stars.forEach(function(star) {
+    if (star.getAttribute('data-value') <= value) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+}
+
+</script>
+</html>

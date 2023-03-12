@@ -1,6 +1,49 @@
 {% extends 'base_layout.html' %} {% load static %}{% block titlesection %}
 <title>{{ book.english_name }}</title> {% endblock %}
+{% block css %}
+<style>
+  .star {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+}
 
+.active {
+  color: #ffcc00;
+}
+
+.checked {
+  color: orange;
+}
+
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+  const stars = document.querySelectorAll('.star');
+const ratingInput = document.getElementById('rating');
+
+stars.forEach(function(star) {
+  star.addEventListener('click', setRating);
+});
+
+function setRating(e) {
+  const value = parseInt(e.target.getAttribute('data-value'));
+  
+  stars.forEach(function(star) {
+    if (star.getAttribute('data-value') <= value) {
+      star.classList.add('active');
+    } else {
+      star.classList.remove('active');
+    }
+  });
+  
+  ratingInput.value = value;
+}
+
+</script>
+{% endblock %}
 
 {% block contents %}
 
@@ -38,11 +81,16 @@
    
               
            </div>
+           
+           <form action="" id="signup" method="POST">
+            <input type="hidden" value="{{ id }}" name="book_id">
            <div class="card-action">
              <a class=" hell white-text waves-effect waves-light btn" href="#"><i class="material-icons left">calendar_month</i>{% if book.year_published %} {{book.year_published}} {% else %} 2000 {% endif %}</a> &nbsp; &nbsp; &nbsp;
-             <a class=" hell white-text waves-effect waves-light btn" href="#"><i class="material-icons left">add_box</i>Add to Collection</a> &nbsp; &nbsp; &nbsp;
+             {% csrf_token %}{% if not has_in_collection %} <button id="signup_button" class="blue-grey darken-4 btn waves-effect waves-light" type="submit" name="action"><i class="material-icons left">add_box</i>Add to Collection</button>{% else %} In Collection {% endif %}  &nbsp; &nbsp; &nbsp;
              <a class=" hell white-text waves-effect waves-light btn" href="https://amazon.com" target="_blank"><i class="material-icons left">shopping_cart</i>Buy Now</a>
            </div>
+          </form>
+          
          </div>
        </div>
        
@@ -98,41 +146,57 @@
        <br>
         
         <!-- comment input filed-->
+        <form action="" method="POST">
         <div>
+          <div class="rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" name="rating" id="rating">
+        
         <div class="input-field">
           <i class="material-icons prefix">comment</i>
-          <textarea id="commentarea" class="materialize-textarea"></textarea>
+          <textarea id="commentarea" class="materialize-textarea" name="review_text"></textarea>
           <label for="commentarea">Write Review Here</label> 
         </div>
-        
+        {% csrf_token %}
         
         <div class="right" style="margin-top: -15px;">
           <a class="blue-grey darken-4 waves-effect waves-light btn" onclick="document.getElementById('commentarea').value = ''">Cancel </a> &nbsp;
         
-          <a class=" hell darken-4 waves-effect waves-light btn" >Post</a>
+          <button class=" hell darken-4 waves-effect waves-light btn" type="submit" >Post</a>
         </div>
         </div>
+        </form>
         
         <br> <br> 
         
         <!--comment sample-->
-        
+        {% for review in reviews %}
         <div class="load1">
-          <span style="float: left;"><img src="img/haaa.jpg" alt="" class="circle responsive-img" style="height: 50px; width: 50px; "></span>
-           <span style="font-size: 13pt; font-weight:600; "> &nbsp;  &nbsp; @Sishir123 </span> <br>
-           <span>  &nbsp;  &nbsp; 1 day ago </span>
-        
-           <p class="blogcomment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, quas ipsum, nesciunt perspiciatis ad recusandae, vero 
-             consectetur 
-             maiores in aspernatur similique. Atque fugiat asperiores placeat! Voluptates beatae dolores officia voluptas!</p>
+          <span style="float: left;"><i class="material-icons left small">account_circle</i></span>
+           <span style="font-size: 13pt; font-weight:600; "> @{{ review.author.username }} </span> <br>
+           <span>  1 day ago </span>
+           <p></p>
+          
+
+           <span class="fa fa-star{% if review.review >= 1 %} checked {% endif %}"></span>
+           <span class="fa fa-star {% if review.review >= 2 %} checked {% endif %}"></span>
+           <span class="fa fa-star {% if review.review >= 3 %} checked {% endif %}"></span>
+           <span class="fa fa-star {% if review.review >= 4 %} checked {% endif %}"></span>
+           <span class="fa fa-star {% if review.review >= 5 %} checked {% endif %}"></span>
+           <p class="blogcomment">{{ review.review_text }}</p>
               
         
               <br>
               <div class="divider"></div>
               <br>
          </div>
-        
-        
+        {% endfor %}
+         
         
         
          

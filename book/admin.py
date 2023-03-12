@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Book
 from django.urls import path,reverse
 from django.shortcuts import redirect,render
-from .models import Book,HomeBook
+from .models import Book,HomeBook,Review
 from  django.http import HttpResponseRedirect
 from django import forms
 from random import randrange
@@ -65,3 +65,4 @@ class BookAdmin(admin.ModelAdmin):
     
 
 admin.site.register(HomeBook)
+admin.site.register(Review)

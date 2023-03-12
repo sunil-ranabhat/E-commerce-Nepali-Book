@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
 
 # Create your models here.
 class Book(models.Model):
@@ -18,6 +20,26 @@ class Book(models.Model):
     def __str__(self):
         return self.english_name
 
+
+class Review(models.Model):
+    book = models.ForeignKey(Book , on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model() , on_delete=models.CASCADE)
+    review_text = models.TextField()
+    review= models.IntegerField(default=0)
+    date_posted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=['-date_posted']
+
+    def __str__(self):
+        return str(self.author) + ' comment on ' + self.book.english_name[:30]
+    
+    @property
+    def date(self):
+        return self.date_posted.strftime('%d %b, %Y').upper()
+
+
+    
 
 class HomeBook(models.Model):
     book= models.ForeignKey(Book,on_delete=models.CASCADE)

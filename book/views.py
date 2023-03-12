@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import HomeBook
 from django.views.generic import ListView , DetailView
-from .models import Book
+from .models import Book, Review
 from django.db.models import Q
+from user.models import User
 
 # Create your views here.
 
@@ -48,10 +49,35 @@ class BookDetail(DetailView):
 
     def get_context_data(self , **kwargs):
         data = super().get_context_data(**kwargs)
+        id= Book.objects.get(slug=self.kwargs.get('slug')).id
+        if not self.request.user.is_authenticated:
+            data['has_in_collection']=False
+        else:
+            user=User.objects.get(id=self.request.user.id)
+            book= Book.objects.get(slug=self.kwargs.get('slug'))
+            if book in user.collection.all():
+                data['has_in_collection']=True
+            else:
+                data['has_in_collection']=False
+        data['id'] =id
+        data['reviews'] = Review.objects.filter(book=self.get_object())
         data['similar_books']= Book.objects.all()[:4]
-        return data
 
-def sign_in(request):
-    return render(request, 'signin.html')
-def sign_up(request):
-    return render(request, 'signup.html')
+        return data
+    def post(self , request , *args , **kwargs):
+        if self.request.POST.__contains__('rating'):
+            #print(self.request.POST['rating']=='')
+            rating_text= self.request.POST['review_text']
+            rating_value= self.request.POST['rating']
+            if(rating_value==''):
+                rating_value=0
+            new_review = Review(book= self.get_object(), author = self.request.user, review_text= rating_text , review=rating_value)
+            new_review.save()
+        else:
+            book_id= self.request.POST.get('book_id')
+            user=User.objects.get(id=self.request.user.id)
+            user.collection.add(book_id)
+        return redirect(request.path_info)
+
+def add_to_collection(request):
+    print(request.user)
