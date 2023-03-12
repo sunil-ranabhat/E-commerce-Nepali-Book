@@ -6,6 +6,7 @@ from django.views.generic import ListView , DetailView
 from .models import Book, Review
 from django.db.models import Q
 from user.models import User
+from .recommendation import get_ratings
 
 # Create your views here.
 
@@ -13,15 +14,20 @@ def home(request):
     books= HomeBook.objects.all()
     return render(request,'index.html',{'books':books})
 
+def collection(request):
+    if request.user.is_authenticated:
+        user=User.objects.get(id=request.user.id)
+        context= user.collection.all()
+    else:
+        return redirect('/auth/signin/?next=/collection/')
+    return render(request,'collection.html',{'books':context})
+
+
 class BookList(ListView):
     model = Book
     template_name = 'books.html'
-    #paginate_by = 20
-    # def get(self , request , *args , **kwargs):
-    #     if not request.GET.get('query'):
-    #         return super().get(request , *args , **kwargs)
-    #     else:
-    #         return super().get(request , *args , **kwargs)
+    
+
     def get_queryset(self):
         query = self.request.GET.get('query')
         genre= self.request.GET.get('genre')
@@ -63,6 +69,11 @@ class BookDetail(DetailView):
         data['reviews'] = Review.objects.filter(book=self.get_object())
         data['similar_books']= Book.objects.all()[:4]
 
+        user_id=1
+        if self.request.user.is_authenticated:
+            user_id= self.request.user.id
+        book_id= self.get_object().id
+        ratings= get_ratings(user_id,book_id)
         return data
     def post(self , request , *args , **kwargs):
         if self.request.POST.__contains__('rating'):
@@ -81,3 +92,5 @@ class BookDetail(DetailView):
 
 def add_to_collection(request):
     print(request.user)
+
+
