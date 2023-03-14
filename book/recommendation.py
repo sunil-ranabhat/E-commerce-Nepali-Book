@@ -43,10 +43,9 @@ def get_estimated_rating_for(USER_ID, BOOK_ID):
 
 
 
-def get_ratings(USER_ID, BOOK_ID):
+def get_ratings(USER_ID):
     ratings = []
     for i in range(400):
         ratings.append((get_estimated_rating_for(USER_ID, i), i))
     return sorted(ratings,reverse=True)
 
-print(get_ratings(80,10))

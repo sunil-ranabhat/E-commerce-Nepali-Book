@@ -67,13 +67,22 @@ class BookDetail(DetailView):
                 data['has_in_collection']=False
         data['id'] =id
         data['reviews'] = Review.objects.filter(book=self.get_object())
-        data['similar_books']= Book.objects.all()[:4]
+        
 
         user_id=1
         if self.request.user.is_authenticated:
             user_id= self.request.user.id
-        book_id= self.get_object().id
-        ratings= get_ratings(user_id,book_id)
+        #book_id= self.get_object().id
+        if self.request.user.is_authenticated:
+            print(User.objects.get(id=user_id).collection.all().count())
+            no_of_collection= User.objects.get(id=user_id).collection.all().count()+1
+            ratings= get_ratings(user_id)
+            suggestions=[]
+            for i in range(4):
+                suggestions.append(Book.objects.get(id=ratings[i*no_of_collection][1]))
+            print(suggestions)
+            data['suggestions']= suggestions
+        #print(ratings)
         return data
     def post(self , request , *args , **kwargs):
         if self.request.POST.__contains__('rating'):

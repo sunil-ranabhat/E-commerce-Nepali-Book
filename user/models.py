@@ -20,6 +20,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     collection= models.ManyToManyField(Book)
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username',]
 

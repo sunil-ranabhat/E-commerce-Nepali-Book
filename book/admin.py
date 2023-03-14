@@ -15,8 +15,8 @@ genres=['Fiction', 'Non-Fiction', 'Novel', 'Fantasy','Biography','Poetry']
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('english_name','nepali_name',)
-    search_fields=('english_name',)
+    list_display = ('nepali_name','english_name',)
+    search_fields=('english_name','nepali_name')
     def get_urls(self):
         urls = super().get_urls()
         new_urls = [

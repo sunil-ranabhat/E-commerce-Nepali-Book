@@ -9,7 +9,7 @@
 }
 
 .active {
-  color: #ffcc00;
+  color: orange;
 }
 
 .checked {
@@ -65,11 +65,11 @@ function setRating(e) {
              <span style="font-weight: 600; font-size: large;"> Genre <a href="/book?genre={{ book.genre }}">  &nbsp; {{ book.genre }}</a> </span>
              <div style="margin-top: 0px;">
                <span style="font-weight: 600; font-size: large;"> Rating &nbsp;</span>
-               <span class="fa fa-star checked" style="color: orange;"></span>
-               <span class="fa fa-star checked"style="color: orange;"></span>
-               <span class="fa fa-star checked"style="color: orange;"></span>
-               <span class="fa fa-star"style="color: orange;"></span>
-               <span class="fa fa-star"style="color: orange;"></span> 
+               <span class="fa fa-star {% if book.avg_rating >= 1 %} checked {% endif %}" "></span>
+               <span class="fa fa-star {% if book.avg_rating >= 2 %} checked {% endif %}""></span>
+               <span class="fa fa-star {% if book.avg_rating >= 3 %} checked {% endif %}""></span>
+               <span class="fa fa-star {% if book.avg_rating >= 4 %} checked {% endif %}""></span>
+               <span class="fa fa-star {% if book.avg_rating >= 5 %} checked {% endif %}""></span> 
                <span style="font-weight: 600; font-size: large;"> &nbsp; {{ book.avg_rating }} of 5</span>
              </div>
              <span style="font-weight: 600; font-size: large;"> Publication &nbsp; <span style="color: brown;"> {{ book.Publisher }} </span></span>
@@ -97,10 +97,10 @@ function setRating(e) {
      </div>
    </div>
     </div>
-
+    {% if suggestions %}
 
     <section class="width_content_narrow">
-      <h4 style="padding-left: 10px;"> Users who read this book have also read </h4> 
+      <h4 style="padding-left: 10px;"> Books you may like </h4> 
       
       
         <div class="row">
@@ -114,23 +114,24 @@ function setRating(e) {
   
   
          
-       {% for book in similar_books %}
+       {% for book in suggestions %}
   
   
           <div class="col s12 m4 l3">
             <div class="card">
               <div class="card-image">
-                <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}            
+                <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}" style="aspect-ratio: 9/14;">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}            
               </div>
-                <div class="card-content">
-               <a href="/book/{{ book.slug }}"> <span class="card-title" style="color: black;">{{ book.nepali_name }} <span class="right">{{ book.avg_rating }}/5 </span> </span> </a>
+              <div class="card-title" style="color: black; display: flex; justify-content: space-between;padding: 1rem 0.5rem;font-size: 16pt;">
+                <a href="/book/{{ book.slug }}" class="truncate" style="text-decoration: none;color: black;">{{ book.nepali_name }}</a>
+                <a style="color: black;font-size: 14pt;">{{ book.avg_rating }}/5 </a>
               </div>
             </div>
           </div>
           
           {% endfor %}
           
-  
+  {% endif %}
             
         </div>    
       </div>
