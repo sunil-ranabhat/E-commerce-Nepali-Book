@@ -22,7 +22,7 @@
   
       <div class="card horizontal small">
         <div class="card-image">
-         <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}
+         <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}
         
         </div>
         <div class="card-stacked">
@@ -30,7 +30,7 @@
             <a href="/book/{{ book.slug }}"><h3 style="color: black;"> {{ book.nepali_name }}  ({{ book.english_name }})
             </h3></a>
             <p style="margin-top: -9px;">By {{ book.english_author }}</p>
-            <div style="margin-top: 7px;">
+            <div style="margin-top: 1px;">
               <span style="font-weight: 600; font-size: large;"> Rating &nbsp;</span>
               <span class="fa fa-star checked" style="color: orange;"></span>
               <span class="fa fa-star checked"style="color: orange;"></span>
