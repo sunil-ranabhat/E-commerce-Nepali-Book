@@ -11,7 +11,8 @@ from .recommendation import  content_recommendation, collaborative_recommendatio
 # Create your views here.
 
 def home(request):
-    books= HomeBook.objects.all()
+    books= Book.objects.all().order_by('-avg_rating')[:4]
+    print(books)
     if request.user.is_authenticated:
             print(User.objects.get(id=request.user.id).collection.all().count())
             no_of_collection= User.objects.get(id=request.user.id).collection.all().count()
