@@ -15,7 +15,7 @@ class Book(models.Model):
     Publisher= models.CharField(max_length=100,null=True)
     no_of_pages=models.IntegerField(null=True)
     year_published=models.CharField(max_length=40,null=True)
-    image=models.ImageField(upload_to='images')
+    image=models.URLField(null=True)
 
     def __str__(self):
         return self.english_name

@@ -6,12 +6,22 @@ from django.views.generic import ListView , DetailView
 from .models import Book, Review
 from django.db.models import Q
 from user.models import User
-from .recommendation import get_ratings
+from .recommendation import  content_recommendation, collaborative_recommendation
 
 # Create your views here.
 
 def home(request):
     books= HomeBook.objects.all()
+    if request.user.is_authenticated:
+            print(User.objects.get(id=request.user.id).collection.all().count())
+            no_of_collection= User.objects.get(id=request.user.id).collection.all().count()
+            if no_of_collection>0:
+                no_of_collection+=1
+                ratings= collaborative_recommendation(request.user.id)
+                suggestions=[]
+                for i in range(4):
+                    suggestions.append(Book.objects.get(id=ratings[i*no_of_collection][1]))
+                return render(request,'index.html',{'books':books,'suggestions': suggestions})
     return render(request,'index.html',{'books':books})
 
 def collection(request):
@@ -31,10 +41,12 @@ class BookList(ListView):
     def get_queryset(self):
         query = self.request.GET.get('query')
         genre= self.request.GET.get('genre')
+        print(genre)
         if query:
             return Book.objects.filter(Q(english_name__icontains = query) | Q(english_author__icontains = query)).distinct()
         if genre:
-            return Book.objects.filter(genre=genre).values()
+            print(Book.objects.filter(Q(genre__icontains = genre)))
+            return Book.objects.filter(Q(genre__icontains = genre)).values()
         return Book.objects.all()
 
     def get_context_data(self , **kwargs):
@@ -72,16 +84,25 @@ class BookDetail(DetailView):
         user_id=1
         if self.request.user.is_authenticated:
             user_id= self.request.user.id
-        #book_id= self.get_object().id
-        if self.request.user.is_authenticated:
-            print(User.objects.get(id=user_id).collection.all().count())
-            no_of_collection= User.objects.get(id=user_id).collection.all().count()+1
-            ratings= get_ratings(user_id)
-            suggestions=[]
-            for i in range(4):
-                suggestions.append(Book.objects.get(id=ratings[i*no_of_collection][1]))
-            print(suggestions)
-            data['suggestions']= suggestions
+        
+
+
+        book = self.get_object()
+        values= content_recommendation(book.english_name)
+        suggestions=[]
+        for i in range(4):
+            suggestions.append(Book.objects.get(id=values[i+1][1]))
+        print(suggestions)
+        data['suggestions']= suggestions
+        # if self.request.user.is_authenticated:
+        #     print(User.objects.get(id=user_id).collection.all().count())
+        #     no_of_collection= User.objects.get(id=user_id).collection.all().count()+1
+        #     ratings= get_ratings(user_id)
+        #     suggestions=[]
+        #     for i in range(4):
+        #         suggestions.append(Book.objects.get(id=ratings[i*no_of_collection][1]))
+        #     print(suggestions)
+        #     data['suggestions']= suggestions
         #print(ratings)
         return data
     def post(self , request , *args , **kwargs):

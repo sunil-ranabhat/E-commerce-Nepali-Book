@@ -9,6 +9,18 @@
 {% endblock %}
 
 
+
+{% block css %}
+<style>
+ 
+
+.checked {
+  color: orange;
+}
+
+</style>
+{% endblock %}
+
 {% block contents %}
 
 <ul id="slide-out" class="sidenav sidenav-fixed" style="margin-top:64px;">
@@ -53,7 +65,7 @@
   
       <div class="card horizontal small">
         <div class="card-image">
-         <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}
+         <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}
         
         </div>
         <div class="card-stacked">
@@ -63,12 +75,16 @@
             <p style="margin-top: -9px;">By {{ book.english_author }}</p>
             <div style="margin-top: 7px;">
               <span style="font-weight: 600; font-size: large;"> Rating &nbsp;</span>
-              <span class="fa fa-star checked" style="color: orange;"></span>
-              <span class="fa fa-star checked"style="color: orange;"></span>
-              <span class="fa fa-star checked"style="color: orange;"></span>
-              <span class="fa fa-star"style="color: orange;"></span>
-              <span class="fa fa-star"style="color: orange;"></span> 
-              <span style="font-weight: 600; font-size: large;"> &nbsp; {{ book.avg_rating }} of 5</span>
+
+                
+                <span class="fa fa-star {% if book.avg_rating >= 1 %} checked {% endif %}" "></span>
+                <span class="fa fa-star {% if book.avg_rating >= 2 %} checked {% endif %}""></span>
+                <span class="fa fa-star {% if book.avg_rating >= 3 %} checked {% endif %}""></span>
+                <span class="fa fa-star {% if book.avg_rating >= 4 %} checked {% endif %}""></span>
+                <span class="fa fa-star {% if book.avg_rating >= 5 %} checked {% endif %}""></span> 
+                <span style="font-weight: 600; font-size: large;"> &nbsp; {{ book.avg_rating }} of 5</span>
+              
+              
             </div>
             <span style="font-weight: 600; font-size: large;"> Publication &nbsp;<span style="color: brown;"> {{ book.Publisher }}</span></span>
   

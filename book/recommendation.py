@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 import os
+import difflib
 
 
 cwd= os.getcwd()
@@ -43,9 +44,43 @@ def get_estimated_rating_for(USER_ID, BOOK_ID):
 
 
 
-def get_ratings(USER_ID):
+def collaborative_recommendation(USER_ID):
     ratings = []
     for i in range(400):
         ratings.append((get_estimated_rating_for(USER_ID, i), i))
     return sorted(ratings,reverse=True)
 
+
+
+
+
+def content_recommendation(name):
+    book_data=pd.read_csv(f'{cwd}\\book\\book2.csv',sep=';')
+    similarity= pd.read_pickle(f'{cwd}\\book\\content_similarity.pkl')
+    selected_features = ['english_title','author','avg_rating','genre','publisher']
+    for feature in selected_features:
+      book_data[feature] = book_data[feature].fillna('')
+    list_of_all_name = list(book_data['english_title'])
+    
+    find_close_match = difflib.get_close_matches(name, list_of_all_name)
+
+    close_match = find_close_match[0]
+
+    name_of_the_book = book_data[book_data.english_title == close_match]['index'].values[0]
+
+    similarity_score = list(enumerate(similarity[name_of_the_book]))
+
+    sorted_similar_book = sorted(similarity_score,key = lambda x:x[1],reverse = True)
+
+    print('book suggested for you: \n')
+    i=1
+    suggestions=[]
+    for book in sorted_similar_book:
+        index = book[0]
+        name_from_index = book_data[book_data.index == index]['english_title'].values[0]
+        index= book_data[book_data.index == index]['index'].values[0]
+        if(i<11):
+            #index_of_the_book = book_data[book_data.name == close_match]['index'].values[0]
+            suggestions.append((name_from_index,index+1))
+            i+=1
+    return suggestions

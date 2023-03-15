@@ -17,6 +17,7 @@ genres=['Fiction', 'Non-Fiction', 'Novel', 'Fantasy','Biography','Poetry']
 class BookAdmin(admin.ModelAdmin):
     list_display = ('nepali_name','english_name',)
     search_fields=('english_name','nepali_name')
+    list_per_page=1000
     def get_urls(self):
         urls = super().get_urls()
         new_urls = [
@@ -37,22 +38,22 @@ class BookAdmin(admin.ModelAdmin):
             for x in csv_data:
                 
                 fields = x.split(";")
-                if fields[12]=='':
+                if 'Unnamed' in fields[12] or fields[12]=='':
                     fields[12]=100
-                # print(fields[0])
+                
                 Book.objects.create(
                     ISBN= fields[0],
                     english_name= fields[2],
                     nepali_name= fields[1],
                     english_author= fields[3],
                     nepali_author=fields[5],
-                    genre= genres[randrange(0,6)],
+                    genre= fields[26],
                     avg_rating=float(fields[9].replace(',','.')),
                     slug=fields[2].replace(' ','-'),
                     Publisher= fields[10],
                     no_of_pages=fields[12],
-                    year_published=fields[14],
-                    image='',
+                    year_published=fields[13],
+                    image=fields[25],
 
                 )
             url = reverse('admin:index')

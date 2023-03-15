@@ -56,7 +56,7 @@ function setRating(e) {
    
        <div class="card horizontal medium">
          <div class="card-image">
-         {% if book.image %}<img src="{{ book.image.url }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"> {% endif %}         </div>
+         {% if book.image %}<img src="{{ book.image }}">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"> {% endif %}         </div>
          <div class="card-stacked">
            <div class="card-content">
              <h3 style="margin-top: -10px;"> {{ book.nepali_name }} ({{ book.english_name }})
@@ -120,7 +120,7 @@ function setRating(e) {
           <div class="col s12 m4 l3">
             <div class="card">
               <div class="card-image">
-                <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image.url }}" style="aspect-ratio: 9/14;">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}            
+                <a href="/book/{{ book.slug }}">{% if book.image %}<img src="{{ book.image }}" style="aspect-ratio: 9/14;">{% else %} <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1618241431i/57721484.jpg"></a>  {% endif %}            
               </div>
               <div class="card-title" style="color: black; display: flex; justify-content: space-between;padding: 1rem 0.5rem;font-size: 16pt;">
                 <a href="/book/{{ book.slug }}" class="truncate" style="text-decoration: none;color: black;">{{ book.nepali_name }}</a>
