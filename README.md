@@ -1,6 +1,6 @@
 # Nepali Book Recommendation System
 
-### Uses Hybrid filtering(Content-based and Collaborative filtering) for book recommendation
+### Uses Hybrid filtering(Content-based and Collaborative filtering) for book recommendation.
 #### Run following commands
 ```
 pip install -r requirements.txt

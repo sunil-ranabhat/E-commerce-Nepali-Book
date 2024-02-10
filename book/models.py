@@ -40,6 +40,11 @@ class Review(models.Model):
 
 
     
+class Order(models.Model):
+    user= models.ForeignKey(get_user_model() , on_delete=models.CASCADE)
+    books= models.ManyToManyField(Book)
+    def __str__(self):
+        return self.user.username
 
 class HomeBook(models.Model):
     book= models.ForeignKey(Book,on_delete=models.CASCADE)

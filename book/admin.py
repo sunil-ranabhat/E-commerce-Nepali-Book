@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book
+from .models import Book, Order
 from django.urls import path,reverse
 from django.shortcuts import redirect,render
 from .models import Book,HomeBook,Review
@@ -65,5 +65,6 @@ class BookAdmin(admin.ModelAdmin):
         return render(request,"upload_csv.html", data)
     
 
-admin.site.register(HomeBook)
+#admin.site.register(HomeBook)
 admin.site.register(Review)
+admin.site.register(Order)

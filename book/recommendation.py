@@ -6,6 +6,7 @@ import difflib
 
 cwd= os.getcwd()
 rating_df= pd.read_pickle(f"{cwd}\\book\\ratings.pkl")
+# print(rating_df)
 
 def get_estimated_rating_for(USER_ID, BOOK_ID):
     users_who_have_rated_book = rating_df[rating_df[BOOK_ID] != 0].index

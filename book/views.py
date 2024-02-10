@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import HomeBook
 from django.views.generic import ListView , DetailView
-from .models import Book, Review
+from .models import Book, Review, Order
 from django.db.models import Q
 from user.models import User
 from .recommendation import  content_recommendation, collaborative_recommendation
@@ -32,6 +32,36 @@ def collection(request):
     else:
         return redirect('/auth/signin/?next=/collection/')
     return render(request,'collection.html',{'books':context})
+
+def order(request):
+    if request.method== 'POST':
+        order_id= request.POST.get('order_id')
+        Order.objects.filter(id=order_id).delete()
+        return redirect('/orders')
+    orders= Order.objects.all()
+    print(orders)
+    return render(request,'order.html',{'orders':orders})
+
+
+
+def cart(request):
+    if request.user.is_authenticated:
+        user=User.objects.get(id=request.user.id)
+        context= user.cart.all()
+    else:
+        return redirect('/auth/signin/?next=/cart/')
+    if request.method=='POST':
+        user = User.objects.get(id=request.user.id)
+        new_order = Order(user=user)
+        new_order.save()
+        
+        books_ids = request.POST.getlist('books')
+        books = Book.objects.filter(id__in=books_ids)
+        new_order.books.set(books)
+        user.cart.clear()
+        return HttpResponse('You have successfully order books')
+
+    return render(request,'cart.html',{'books':context})
 
 
 class BookList(ListView):
@@ -71,6 +101,7 @@ class BookDetail(DetailView):
         id= Book.objects.get(slug=self.kwargs.get('slug')).id
         if not self.request.user.is_authenticated:
             data['has_in_collection']=False
+            data['has_in_cart']= False
         else:
             user=User.objects.get(id=self.request.user.id)
             book= Book.objects.get(slug=self.kwargs.get('slug'))
@@ -78,6 +109,11 @@ class BookDetail(DetailView):
                 data['has_in_collection']=True
             else:
                 data['has_in_collection']=False
+            if book in user.cart.all():
+                data['has_in_cart']=True
+            else:
+                data['has_in_cart']=False
+            
         data['id'] =id
         data['reviews'] = Review.objects.filter(book=self.get_object())
         
@@ -115,10 +151,14 @@ class BookDetail(DetailView):
                 rating_value=0
             new_review = Review(book= self.get_object(), author = self.request.user, review_text= rating_text , review=rating_value)
             new_review.save()
+        # elif self.request.POST.__contains__('cart'):
+        #     book_id= self.request.POST.get('book_id')
+        #     user=User.objects.get(id=self.request.user.id)
+        #     user.cart.add(book_id)
         else:
             book_id= self.request.POST.get('book_id')
             user=User.objects.get(id=self.request.user.id)
-            user.collection.add(book_id)
+            user.cart.add(book_id)
         return redirect(request.path_info)
 
 def add_to_collection(request):

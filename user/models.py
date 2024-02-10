@@ -19,7 +19,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    collection= models.ManyToManyField(Book)
+    collection= models.ManyToManyField(Book, related_name= 'user_collection')
+    cart= models.ManyToManyField(Book, related_name= 'user_cart')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username',]

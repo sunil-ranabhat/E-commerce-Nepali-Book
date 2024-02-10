@@ -48,7 +48,9 @@
                     <ul class="right hide-on-med-and-down hover_backcolor">
                         <li><a href="/book">Books</a></li>
                         <li><a href="/collection">Collection</a></li>
-                        <li><a href="">AboutUs</a></li>
+                        <li><a href="/cart">Cart</a></li>
+                        {% if user.is_admin %}<li><a href="/orders">Orders</a></li>{% endif %}
+                        <!-- <li><a href="">AboutUs</a></li> -->
                          {% if user.is_authenticated %} <a class=" white black-text waves-effect waves-dark btn modal-trigger"
                             href="/auth/logout?next={{ request.path_info }}"><b>{{ user.username }} <span
                                     class="material-icons" style="vertical-align: -6px;"> logout</span> </b></a> {% else %} <a class=" white black-text waves-effect waves-dark btn modal-trigger"
