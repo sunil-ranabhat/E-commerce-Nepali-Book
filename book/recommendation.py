@@ -5,7 +5,9 @@ import difflib
 
 
 cwd= os.getcwd()
-rating_df= pd.read_pickle(f"{cwd}\\book\\ratings.pkl")
+# rating_df= pd.read_pickle("Users\\sunil\\Nepali-Book-Recommendation\\book\\ratings.pkl")
+# rating_df = pd.read_pickle("/Users/sunil/Important Documents/Nepali-Book-Recommendation/book/ratings.pkl")
+rating_df = pd.read_pickle(os.path.join(os.path.dirname(__file__), "ratings.pkl"))
 # print(rating_df)
 
 def get_estimated_rating_for(USER_ID, BOOK_ID):
@@ -56,8 +58,8 @@ def collaborative_recommendation(USER_ID):
 
 
 def content_recommendation(name):
-    book_data=pd.read_csv(f'{cwd}\\book\\book2.csv',sep=';')
-    similarity= pd.read_pickle(f'{cwd}\\book\\content_similarity.pkl')
+    book_data = pd.read_csv(os.path.join(os.path.dirname(__file__), "book2.csv"), sep=';')
+    similarity = pd.read_pickle(os.path.join(os.path.dirname(__file__), "content_similarity.pkl"))
     selected_features = ['english_title','author','avg_rating','genre','publisher']
     for feature in selected_features:
       book_data[feature] = book_data[feature].fillna('')
