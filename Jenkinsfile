@@ -1,23 +1,39 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE = '767397778698.dkr.ecr.us-east-1.amazonaws.com/nepali-book-app:latest'
+    }
+
     stages {
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t nepali-book-app .'
+                sh 'docker build -t $IMAGE .'
             }
         }
 
-        stage('Stop Old Container') {
+        stage('Login to ECR') {
             steps {
-                sh 'docker stop nepali-book-container || true'
-                sh 'docker rm nepali-book-container || true'
+                sh '''
+                aws ecr get-login-password --region us-east-1 | \
+                docker login --username AWS --password-stdin 767397778698.dkr.ecr.us-east-1.amazonaws.com
+                '''
             }
         }
 
-        stage('Run Container') {
+        stage('Push Docker Image to ECR') {
             steps {
-                sh 'docker run -d -p 8000:8000 --name nepali-book-container nepali-book-app'
+                sh 'docker push $IMAGE'
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                sh '''
+                # Optional: Apply Kubernetes manifests pointing to your ECR image
+                kubectl apply -f deployment.yaml
+                kubectl apply -f service.yaml
+                '''
             }
         }
     }
