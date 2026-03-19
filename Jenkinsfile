@@ -2,15 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Info') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Code pulled from GitHub successfully 🚀'
-            }
-        }
-
-        stage('List Files') {
-            steps {
-                sh 'ls -la'
+                sh 'docker build -t nepali-book-app .'
             }
         }
     }
