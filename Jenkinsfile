@@ -27,13 +27,16 @@ pipeline {
             }
         }
 
-        stage('Deploy to EKS') {
+        stage('Stop Old Container') {
             steps {
-                sh '''
-                # Optional: Apply Kubernetes manifests pointing to your ECR image
-                kubectl apply -f deployment.yaml
-                kubectl apply -f service.yaml
-                '''
+                sh 'docker stop nepali-book-container || true'
+                sh 'docker rm nepali-book-container || true'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 80:8000 --name nepali-book-container $IMAGE'
             }
         }
     }
